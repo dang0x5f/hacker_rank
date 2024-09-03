@@ -1,6 +1,5 @@
+/* recursive-like solution */
 #include <stdio.h>
-#include <string.h>
-#include <math.h>
 #include <stdlib.h>
 
 void print_pattern(int*);
@@ -24,29 +23,19 @@ void print_pattern(int* num){
 }
 
 void print_row(int wxh, int o_layer, int row, int step){
-    if(row < wxh && row < (wxh/2) ){
+    if(row < wxh){
         print_col(wxh, o_layer, row, step);
-        print_row(wxh, o_layer, row + 1, step + 1);
-    } else if(row < wxh && row >= (wxh/2) ){
-        print_col(wxh, o_layer, row, step);
-        print_row(wxh, o_layer, row + 1, step - 1);
-    }
+        if(row < (wxh/2))
+            print_row(wxh, o_layer, row + 1, step + 1);
+        else if(row >= (wxh/2))
+            print_row(wxh, o_layer, row + 1, step - 1);
+    } 
 }
 
-/* inc_step is the accumulator */ 
-/* step is the max amount of steps down/up */
 void print_col(int wxh, int o_layer, int row, int step){
-
     int inc_step = 0;
 
     for(int i = 0; i < wxh; i++){
-        /* middle */
-        /* if( i == (wxh/2) && row == (wxh/2) ){ */
-        /*     printf("%c ", '+'); */
-        /* } else { */
-        /*     printf("%d ", o_layer); */
-        /* } */
-
         printf("%d ", o_layer - inc_step);
 
         if(i < (wxh/2) && inc_step < step)
